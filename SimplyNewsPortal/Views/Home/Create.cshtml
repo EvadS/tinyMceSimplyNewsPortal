@@ -1,0 +1,98 @@
+﻿@model SimplyNewsPortal.Models.BlogPost
+
+@{
+    ViewBag.Title = "Create";
+}
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm())
+{
+    
+    
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <fieldset>
+        <legend>BlogPost</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Title)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Title)
+            @Html.ValidationMessageFor(model => model.Title)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PostedOn)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.PostedOn)
+            @Html.ValidationMessageFor(model => model.PostedOn)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Tags)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Tags)
+            @Html.ValidationMessageFor(model => model.Tags)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Content)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Content)
+            @Html.ValidationMessageFor(model => model.Content)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+
+    <script src="~/Scripts/jquery-ui-1.12.0.min.js"></script>
+    <link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+
+    <script type="text/javascript">
+        $(function () {
+            $("input[type='date']")
+                        .datepicker({ dateFormat: 'dd/mm/yy' })
+                        .get(0).setAttribute("type", "text");
+            $.datepicker.regional['ru'] = {
+                prevText: 'Пред',
+                nextText: 'След',
+                monthNames: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
+                'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
+                monthNamesShort: ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн',
+                'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'],
+                dayNames: ['воскресенье', 'понедельник', 'вторник', 'среда', 'четверг', 'пятница', 'суббота'],
+                dayNamesShort: ['вск', 'пнд', 'втр', 'срд', 'чтв', 'птн', 'сбт'],
+                dayNamesMin: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
+                weekHeader: 'Не',
+                dateFormat: 'dd/mm/yy',
+                firstDay: 1,
+                isRTL: false,
+                showMonthAfterYear: false,
+                yearSuffix: ''
+            };
+            $.datepicker.setDefaults($.datepicker.regional['ru']);
+        });
+    </script>
+
+</div>
+@*@Scripts.Render("~/scripts/jquery-1.10.2.js")
+@Scripts.Render("~/scripts/jquery.unobtrusive-ajax.js")*@
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+
