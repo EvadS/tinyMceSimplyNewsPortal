@@ -11,17 +11,21 @@ namespace SimplyNewsPortal.Models
     {
         public int Id { get; set; }
 
+        [Required]
         [Display(Name = "Заголовок")]
         public string Title { get; set; }
 
+        [Required]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd'/'MM'/'yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Дата публикации")]
         public DateTime PostedOn { get; set; }
 
+        [Required]
         [Display(Name = "Теги")]
         public string Tags { get; set; }
 
+        [Required]
         [DataType(DataType.MultilineText)]
         [Display(Name = "Содержание")]
         [UIHint("tinymce_jquery_full"), AllowHtml]

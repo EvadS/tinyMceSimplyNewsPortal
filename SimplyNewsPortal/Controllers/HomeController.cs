@@ -102,9 +102,43 @@ namespace SimplyNewsPortal.Controllers
             else
             {
                 ViewBag.Message = "Во время редактирования возникли ошибки";
-                return RedirectToAction("Index");
+                return View(blogPost);
             }
         }
+
+
+        [HttpPost]
+        public JsonResult CreateNews(string Tags, DateTime PostedOn, string Content,string Title)
+        {
+
+            try
+            {
+                var blogPost = new BlogPost();
+                blogPost.Title = Title;
+                blogPost.Tags = Tags;
+                blogPost.PostedOn = PostedOn;
+                blogPost.Content = Content;
+
+                context.BlogPosts.Add(blogPost);
+                context.SaveChanges();
+
+
+                return Json(new { resultMessage = "Ваш комментарий добавлен успешно!" });
+            }
+            catch (Exception ex)
+            {
+                //error msg for failed edit in XML file
+                ModelState.AddModelError("", "Error editing record. " + ex.Message);
+                return Json(new { resultMessage = "произошла ошибка в процессе добавления" });
+            }
+
+
+            System.Threading.Thread.Sleep(5000);  /*simulating slow connection*/
+
+
+        }
+
+
 
     }
 }
