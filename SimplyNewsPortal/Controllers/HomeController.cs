@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -13,12 +14,19 @@ namespace SimplyNewsPortal.Controllers
 
         BlogsContext context = new BlogsContext();
         //
-        // GET: /Homr/
-
+        // GET: /Home/
         public ActionResult Index()
         {
             var list = context.BlogPosts.ToList();
             return View(list);
+        }
+
+        // асинхронный метод
+        public async Task<ActionResult> BookList()
+        {
+            IEnumerable<BlogPost> books = await context.BlogPosts.ToListAsync();
+            ViewBag.Books = books;
+            return View("Index");
         }
 
         public ActionResult Create()
@@ -29,6 +37,7 @@ namespace SimplyNewsPortal.Controllers
         [HttpPost]
         public ActionResult Create(BlogPost blogPost)
         {
+
             if (ModelState.IsValid)
             {
                 try
@@ -47,6 +56,7 @@ namespace SimplyNewsPortal.Controllers
                 // return HttpNotFound();
             }
 
+            ViewBag.Message = "Запрос не прошел валидацию";
             return View();
         }
 
@@ -93,6 +103,11 @@ namespace SimplyNewsPortal.Controllers
         [HttpPost]
         public ActionResult Edit(BlogPost blogPost)
         {
+            if (blogPost.Tags.Length < 2)
+            {
+                ModelState.AddModelError("Name", "Недопустимая длина тега");
+            }
+
             if (TryUpdateModel(blogPost))
             {
                 context.Entry(blogPost).State = EntityState.Modified;
@@ -108,9 +123,16 @@ namespace SimplyNewsPortal.Controllers
 
 
         [HttpPost]
-        public JsonResult CreateNews(string Tags, DateTime PostedOn, string Content,string Title)
+        public JsonResult CreateNews(string Tags, DateTime PostedOn, string Content, string Title)
         {
-
+            if (string.IsNullOrEmpty(Tags))
+            {
+                ModelState.AddModelError("Tags", "Некорректный тег");
+            }
+            if (!ModelState.IsValid)
+            {
+              
+            }
             try
             {
                 var blogPost = new BlogPost();
@@ -133,7 +155,7 @@ namespace SimplyNewsPortal.Controllers
             }
 
 
-            System.Threading.Thread.Sleep(5000);  /*simulating slow connection*/
+            // System.Threading.Thread.Sleep(5000);  /*simulating slow connection*/
 
 
         }

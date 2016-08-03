@@ -47,51 +47,13 @@
 
 <div>
 
-    <script src="~/Scripts/jquery-ui-1.12.0.min.js"></script>
-   <script type="text/javascript" src='~/Scripts/tinymce/tinymce.js'></script>
+    <script src="~/Scripts/jquery-ui-1.12.0.min.js"></script>  
     <link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
 
-    <script type="text/javascript">
-        $(function () {
-            $("input[type='date']")
-                        .datepicker({ dateFormat: 'dd/mm/yy' })
-                        .get(0).setAttribute("type", "text");
-            $.datepicker.regional['ru'] = {
-                prevText: 'Пред',
-                nextText: 'След',
-                monthNames: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
-                'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
-                monthNamesShort: ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн',
-                'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'],
-                dayNames: ['воскресенье', 'понедельник', 'вторник', 'среда', 'четверг', 'пятница', 'суббота'],
-                dayNamesShort: ['вск', 'пнд', 'втр', 'срд', 'чтв', 'птн', 'сбт'],
-                dayNamesMin: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
-                weekHeader: 'Не',
-                dateFormat: 'dd/mm/yy',
-                firstDay: 1,
-                isRTL: false,
-                showMonthAfterYear: false,
-                yearSuffix: ''
-            };
-            $.datepicker.setDefaults($.datepicker.regional['ru']);
-        });
-    </script>
+    <script type="text/javascript" src='~/Scripts/tinymce/tinymce.js'></script>
+    <script src="~/Scripts/NewsPortal/tinyMceSetting.js"></script>
 
-
-
-    <script type="text/javascript">
-    tinymce.init({
-        selector: "#Content",
-        theme: "modern",
-        menubar: false,
-        resize: false,
-        statusbar: false,
-        plugins: ["advlist autolink lists charmap preview hr anchor",
-            "pagebreak code nonbreaking table contextmenu directionality paste"],
-        toolbar1: "styleselect | bold italic underline | pagebreak code preview | undo redo",
-        toolbar2: "alignleft aligncenter alignright alignjustify | bullist numlist outdent indent"
-    });
-</script>
+    <script src="~/Scripts/NewsPortal/dateTimePicker.js"></script>
 
 
 </div>
@@ -113,8 +75,8 @@
         });
 
         // Добавление новой книги
-        function AddNews() {           
-      
+        function AddNews() {
+
             var content = tinyMCE.activeEditor.getContent();
 
             // получаем значения для добавляемой книги

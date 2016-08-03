@@ -12,12 +12,12 @@ namespace SimplyNewsPortal.Models
         public int Id { get; set; }
 
         [Required]
-        [Display(Name = "Заголовок")]
+        [Display(Name = "Заголовок", Prompt = "Введите заголовок")]       
         public string Title { get; set; }
 
         [Required]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd'/'MM'/'yyyy}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:dd'/'MM'/'yyyy}", ApplyFormatInEditMode  = true)]
         [Display(Name = "Дата публикации")]
         public DateTime PostedOn { get; set; }
 
