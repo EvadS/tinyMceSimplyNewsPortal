@@ -13,7 +13,12 @@ namespace SimplyNewsPortal.Controllers
     {
 
         BlogsContext context = new BlogsContext();
-        //
+
+        public ActionResult List()
+        {
+            string[] words = { "apple", "strawberry", "grape", "peach", "banana" };
+            return View(words.AsEnumerable());
+        }
         // GET: /Home/
         public ActionResult Index()
         {
