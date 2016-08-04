@@ -1,4 +1,6 @@
-﻿using SimplyNewsPortal.Models;
+﻿using SimplyNewsPortal.Additional;
+using SimplyNewsPortal.Models;
+using SimplyNewsPortal.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -14,13 +16,30 @@ namespace SimplyNewsPortal.Controllers
 
         BlogsContext context = new BlogsContext();
 
-        public ActionResult List()
+        public ActionResult List(int? page,string  category, int pageSize = 5)
         {
-            string[] words = { "apple", "strawberry", "grape", "peach", "banana" };
-            return View(words.AsEnumerable());
+            int currentPage = page ?? 1;
+
+            currentPage = (currentPage < 1) ? 1 : currentPage;
+            var query = context.BlogPosts.OrderBy(c => c.Title);
+            var list = query.Skip((currentPage-1) * pageSize).Take(pageSize).ToList();
+
+            var totalPages = context.BlogPosts.Count();
+
+            var pager = new Pager(totalPages,currentPage, pageSize);
+
+            var viewModel = new IndexViewModel
+            {
+                BlogPosts = list,
+                Pager = pager
+            };
+
+            return View(viewModel);           
         }
+
+        
         // GET: /Home/
-        public ActionResult Index()
+         public ActionResult Index()
         {
             var list = context.BlogPosts.ToList();
             return View(list);

@@ -1,15 +1,64 @@
-﻿@model IEnumerable<string>
+﻿@model SimplyNewsPortal.ViewModel.IndexViewModel
+
+@using SimplyNewsPortal.Helpers
+@using SimplyNewsPortal.ViewModel
+
 
 @{
     ViewBag.Title = "List";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>List</h2>
+<h2>Текущие новости</h2>
+
+<div>
+
+    @foreach (var item in Model.BlogPosts)
+    {
+        @Html.Partial("NewsItem", item)
+    }
+</div>
+
+<div>
+    <!-- pager -->
+    @if (Model.Pager.EndPage > 1)
+    {
+        <ul class="pagination">
+            @if (Model.Pager.CurrentPage > 1)
+            {
+                <li>
+                    <a href="~/Home/List">First</a>
+                </li>
+                <li>
+                    <a href="~/Home/List/page/@(Model.Pager.CurrentPage - 1)">Previous</a>
+                </li>
+            }
+
+            @for (var page = Model.Pager.StartPage; page <= Model.Pager.EndPage; page++)
+            {
+                <li class="@(page == Model.Pager.CurrentPage ? "active" : "")">
+                    <a href="~/Home/List/page/@page">@page</a>
+                </li>
+            }
+
+            @if (Model.Pager.CurrentPage < Model.Pager.TotalPages)
+            {
+                <li>
+                    <a href="~/Home/List/page/@(Model.Pager.CurrentPage + 1)">Next</a>
+                </li>
+                <li>
+                    <a href="~/Home/List/page/@(Model.Pager.TotalPages)">Last</a>
+                </li>
+            }
+        </ul>
+    }
+</div>
+<!-- pager -->
 
 
-@foreach (var item in Model) {
-   @Html.Partial("NewsItem", item)
-}
+
+<div class="btn-group">
+    @Html.PageLinks(Model, x => Url.Action("List",new { page = x}))
+</div>
 
 

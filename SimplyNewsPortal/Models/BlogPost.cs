@@ -9,15 +9,21 @@ namespace SimplyNewsPortal.Models
 {
     public class BlogPost
     {
+        //TODO: убрать при реализации паттерна репозитарий 
+        public BlogPost()
+        {
+            DateOfCreation = DateTime.Now;
+        }
+
         public int Id { get; set; }
 
         [Required]
-        [Display(Name = "Заголовок", Prompt = "Введите заголовок")]       
+        [Display(Name = "Заголовок", Prompt = "Введите заголовок")]
         public string Title { get; set; }
 
         [Required]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd'/'MM'/'yyyy}", ApplyFormatInEditMode  = true)]
+        [DisplayFormat(DataFormatString = "{0:dd'/'MM'/'yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Дата публикации")]
         public DateTime PostedOn { get; set; }
 
@@ -30,5 +36,9 @@ namespace SimplyNewsPortal.Models
         [Display(Name = "Содержание")]
         [UIHint("tinymce_jquery_full"), AllowHtml]
         public string Content { get; set; }
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd'/'MM'/'yyyy}", ApplyFormatInEditMode = true)]
+        public DateTime DateOfCreation { get; set; }
     }
 }
