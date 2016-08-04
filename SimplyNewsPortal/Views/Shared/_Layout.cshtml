@@ -3,11 +3,11 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-     <script src="~/Scripts/jquery-3.1.0.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="~/Scripts/jquery-3.1.0.js"></script>
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
     <script src="~/Scripts/bootstrap.js"></script>
-   
+
 
     <title>@ViewBag.Title</title>
 </head>
@@ -17,7 +17,7 @@
             @RenderBody()
         </div>
 
-        @RenderSection("scripts",false)
+        @RenderSection("scripts", false)
         <footer>
             @if (IsSectionDefined("Footer"))
             {
