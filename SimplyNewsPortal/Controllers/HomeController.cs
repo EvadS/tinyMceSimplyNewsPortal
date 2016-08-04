@@ -1,4 +1,5 @@
 ﻿using SimplyNewsPortal.Additional;
+using SimplyNewsPortal.ConcreteRepository;
 using SimplyNewsPortal.Models;
 using SimplyNewsPortal.ViewModel;
 using System;
@@ -13,6 +14,11 @@ namespace SimplyNewsPortal.Controllers
 {
     public class HomeController : Controller
     {
+        SQLBookRepository db;
+        
+        public HomeController(){
+            db = new SQLBookRepository();        
+        }
 
         BlogsContext context = new BlogsContext();
 
@@ -41,17 +47,18 @@ namespace SimplyNewsPortal.Controllers
         // GET: /Home/
          public ActionResult Index()
         {
-            var list = context.BlogPosts.ToList();
+
+            var list = db.GetBlogList();
             return View(list);
         }
 
         // асинхронный метод
-        public async Task<ActionResult> BookList()
-        {
-            IEnumerable<BlogPost> books = await context.BlogPosts.ToListAsync();
-            ViewBag.Books = books;
-            return View("Index");
-        }
+        //public async Task<ActionResult> BookList()
+        //{
+        //    IEnumerable<BlogPost> books = await context.BlogPosts.ToListAsync();
+        //    ViewBag.Books = books;
+        //    return View("Index");
+        //}
 
         public ActionResult Create()
         {
@@ -66,8 +73,8 @@ namespace SimplyNewsPortal.Controllers
             {
                 try
                 {
-                    context.BlogPosts.Add(blogPost);
-                    context.SaveChanges();
+                    db.Create(blogPost);
+                    db.Save();
 
                     return RedirectToAction("index", "Home");
                 }
@@ -92,6 +99,7 @@ namespace SimplyNewsPortal.Controllers
             {
                 return HttpNotFound();
             }
+
             return View(b);
         }
 
@@ -103,9 +111,10 @@ namespace SimplyNewsPortal.Controllers
             {
                 return HttpNotFound();
             }
-            context.BlogPosts.Remove(b);
-            context.SaveChanges();
-
+          
+            db.Delete(id);
+            db.Save();
+            
             return RedirectToAction("Index");
         }
 
@@ -116,7 +125,7 @@ namespace SimplyNewsPortal.Controllers
             {
                 return HttpNotFound();
             }
-            var blogPost = context.BlogPosts.Find(id);
+            var blogPost =  context.BlogPosts.Find(id);
             if (blogPost != null)
             {
                 return View(blogPost);
