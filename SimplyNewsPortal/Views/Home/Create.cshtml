@@ -6,12 +6,8 @@
 }
 
 
-
-<h2>Create</h2>
-
 @using (Html.BeginForm())
 {   
-
     <fieldset>
         <legend>BlogPost</legend>
 
@@ -44,18 +40,7 @@
         </p>
     </fieldset>
 }
-
 <div>
-
-    <script src="~/Scripts/jquery-ui-1.12.0.min.js"></script>  
-    <link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
-
-    <script type="text/javascript" src='~/Scripts/tinymce/tinymce.js'></script>
-    <script src="~/Scripts/NewsPortal/tinyMceSetting.js"></script>
-
-    <script src="~/Scripts/NewsPortal/dateTimePicker.js"></script>
-
-
 </div>
 
 <div>
@@ -63,8 +48,15 @@
 </div>
 
 
+
 @section scripts
 {
+
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/themes/base/jqueryui")
+    @Scripts.Render("~/Scripts/NewsPortal/dateTimePicker")
+    @Scripts.Render("~/Scripts/NewsPortal/tinyMceSetting")
+
     <script type="text/javascript">
         $(document).ready(function () {
             $("#btnCreate").click(function (e) {

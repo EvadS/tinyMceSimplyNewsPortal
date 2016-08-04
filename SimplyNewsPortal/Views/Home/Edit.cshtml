@@ -61,15 +61,14 @@
     </fieldset>
 }
 
-<script src="~/Scripts/jquery-ui-1.12.0.min.js"></script>
-<link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
-<script src="~/Scripts/NewsPortal/dateTimePicker.js"></script>
 
-<script type="text/javascript" src='~/Scripts/tinymce/tinymce.js'></script>
-<script src="~/Scripts/NewsPortal/tinyMceEditSetting.js"></script>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/themes/base/jqueryui")
+    @Scripts.Render("~/Scripts/NewsPortal/dateTimePicker")
 
-<link href="~/Content/Site.css" rel="stylesheet" />
-
+    @Scripts.Render("tinyMceEditSetting")
+}
 
 
 

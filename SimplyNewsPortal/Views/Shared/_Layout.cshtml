@@ -4,10 +4,11 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="~/Scripts/jquery-3.1.0.js"></script>
-    <link href="~/Content/bootstrap.css" rel="stylesheet" />
-    <script src="~/Scripts/bootstrap.js"></script>
 
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Styles.Render("~/Content/css")
+   
 
     <title>@ViewBag.Title</title>
 </head>
@@ -16,8 +17,8 @@
         <div>
             @RenderBody()
         </div>
-
-        @RenderSection("scripts", false)
+    
+        @RenderSection("Scripts", required: false)
         <footer>
             @if (IsSectionDefined("Footer"))
             {

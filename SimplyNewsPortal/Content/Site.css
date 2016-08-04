@@ -1,0 +1,24 @@
+﻿/* Styles for validation helpers
+-----------------------------------------------------------*/
+.field-validation-error {
+    color: #6699CC;
+    font-weight:bold;
+    text-decoration:underline;
+}
+ 
+.field-validation-valid {
+    display: none;
+}
+ .input-validation-error {
+    border: 1px solid #006699;
+   
+}
+ 
+.validation-summary-errors {
+    font-weight: bold;
+    color: #f00;
+}
+ 
+.validation-summary-valid {
+    display: none;
+}
