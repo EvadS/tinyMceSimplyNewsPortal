@@ -23,6 +23,7 @@ namespace SimplyNewsPortal
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             // se Install-Package Microsoft.AspNet.Web.Optimization
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            AuthConfig.RegisterAuth();
         }
     }
 }

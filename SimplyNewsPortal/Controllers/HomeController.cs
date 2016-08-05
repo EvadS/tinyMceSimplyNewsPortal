@@ -42,6 +42,7 @@ namespace SimplyNewsPortal.Controllers
 
 
         // GET: /Home/
+        [Authorize]
         public ActionResult Index()
         {
             var list = db.GetBlogList();
