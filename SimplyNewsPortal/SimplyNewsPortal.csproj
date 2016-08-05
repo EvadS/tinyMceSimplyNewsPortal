@@ -192,6 +192,10 @@
     <Compile Include="Migrations\201608051139081_test.Designer.cs">
       <DependentUpon>201608051139081_test.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201608051156013_merge 2 base .cs" />
+    <Compile Include="Migrations\201608051156013_merge 2 base .Designer.cs">
+      <DependentUpon>201608051156013_merge 2 base .cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\BlogPost.cs" />
@@ -548,6 +552,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201608051139081_test.resx">
       <DependentUpon>201608051139081_test.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608051156013_merge 2 base .resx">
+      <DependentUpon>201608051156013_merge 2 base .cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

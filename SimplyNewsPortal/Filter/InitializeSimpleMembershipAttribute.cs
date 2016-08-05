@@ -28,11 +28,11 @@ namespace SimplyNewsPortal.Filter
         {
             public SimpleMembershipInitializer()
             {
-                Database.SetInitializer<UsersContext>(null);
+                Database.SetInitializer<BlogsContext>(null);
 
                 try
                 {
-                    using (var context = new UsersContext())
+                    using (var context = new BlogsContext())
                     {
                         if (!context.Database.Exists())
                         {
@@ -41,7 +41,7 @@ namespace SimplyNewsPortal.Filter
                         }
                     }
 
-                    WebSecurity.InitializeDatabaseConnection("DefaultConnection", "UserProfile", "UserId", "UserName", autoCreateTables: true);
+                    WebSecurity.InitializeDatabaseConnection("BookContext", "UserProfile", "UserId", "UserName", autoCreateTables: true);
                 }
                 catch (Exception ex)
                 {

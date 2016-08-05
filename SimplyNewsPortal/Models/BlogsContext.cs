@@ -12,5 +12,6 @@ namespace SimplyNewsPortal.Models
             : base("BookContext")
     {}
         public DbSet<BlogPost> BlogPosts { get; set; }
+        public DbSet<UserProfile> UserProfiles { get; set; }
     }
 }
