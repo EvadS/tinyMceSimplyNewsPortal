@@ -41,7 +41,8 @@ namespace SimplyNewsPortal.Filter
                         }
                     }
 
-                    WebSecurity.InitializeDatabaseConnection("BookContext", "UserProfile", "UserId", "UserName", autoCreateTables: true);
+                    //наша таблица называется Users, идентификатор пользователя содержится в столбце Id, а его логин в столбце Email.
+                    WebSecurity.InitializeDatabaseConnection("BookContext", "Users", "Id", "Email", autoCreateTables: true);
                 }
                 catch (Exception ex)
                 {
