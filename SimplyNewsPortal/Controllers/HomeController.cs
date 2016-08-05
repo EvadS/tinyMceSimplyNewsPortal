@@ -15,24 +15,21 @@ namespace SimplyNewsPortal.Controllers
     public class HomeController : Controller
     {
         SQLBookRepository db;
-        
-        public HomeController(){
-            db = new SQLBookRepository();        
+
+        public HomeController()
+        {
+            db = new SQLBookRepository();
         }
 
-        BlogsContext context = new BlogsContext();
-
-        public ActionResult List(int? page,string  category, int pageSize = 5)
+        public ActionResult List(int? page, string category, int pageSize = 5)
         {
             int currentPage = page ?? 1;
 
             currentPage = (currentPage < 1) ? 1 : currentPage;
-            var query = context.BlogPosts.OrderBy(c => c.Title);
-            var list = query.Skip((currentPage-1) * pageSize).Take(pageSize).ToList();
+            var list = db.GetBlogList(currentPage, pageSize);
 
-            var totalPages = context.BlogPosts.Count();
-
-            var pager = new Pager(totalPages,currentPage, pageSize);
+            var totalPages = db.GetDataCount();
+            var pager = new Pager(totalPages, currentPage, pageSize);
 
             var viewModel = new IndexViewModel
             {
@@ -40,14 +37,13 @@ namespace SimplyNewsPortal.Controllers
                 Pager = pager
             };
 
-            return View(viewModel);           
+            return View(viewModel);
         }
 
-        
-        // GET: /Home/
-         public ActionResult Index()
-        {
 
+        // GET: /Home/
+        public ActionResult Index()
+        {
             var list = db.GetBlogList();
             return View(list);
         }
@@ -94,7 +90,8 @@ namespace SimplyNewsPortal.Controllers
         [HttpGet]
         public ActionResult Delete(int id)
         {
-            BlogPost b = context.BlogPosts.Find(id);
+            BlogPost b = db.GetBlog(id);
+          
             if (b == null)
             {
                 return HttpNotFound();
@@ -106,26 +103,23 @@ namespace SimplyNewsPortal.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            BlogPost b = context.BlogPosts.Find(id);
+            BlogPost b = db.GetBlog(id);
+            
             if (b == null)
             {
                 return HttpNotFound();
             }
-          
+
             db.Delete(id);
             db.Save();
-            
+
             return RedirectToAction("Index");
         }
 
         [HttpGet]
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int id)
         {
-            if (id == null)
-            {
-                return HttpNotFound();
-            }
-            var blogPost =  context.BlogPosts.Find(id);
+            var blogPost = db.GetBlog(id);
             if (blogPost != null)
             {
                 return View(blogPost);
@@ -143,8 +137,8 @@ namespace SimplyNewsPortal.Controllers
 
             if (TryUpdateModel(blogPost))
             {
-                context.Entry(blogPost).State = EntityState.Modified;
-                context.SaveChanges();
+                db.Update(blogPost);
+                db.Save();
                 return RedirectToAction("Index");
             }
             else
@@ -164,7 +158,7 @@ namespace SimplyNewsPortal.Controllers
             }
             if (!ModelState.IsValid)
             {
-              
+
             }
             try
             {
@@ -174,9 +168,8 @@ namespace SimplyNewsPortal.Controllers
                 blogPost.PostedOn = PostedOn;
                 blogPost.Content = Content;
 
-                context.BlogPosts.Add(blogPost);
-                context.SaveChanges();
-
+                db.Create(blogPost);
+                db.Save();
 
                 return Json(new { resultMessage = "Ваш комментарий добавлен успешно!" });
             }
@@ -186,10 +179,7 @@ namespace SimplyNewsPortal.Controllers
                 ModelState.AddModelError("", "Error editing record. " + ex.Message);
                 return Json(new { resultMessage = "произошла ошибка в процессе добавления" });
             }
-
-
             // System.Threading.Thread.Sleep(5000);  /*simulating slow connection*/
-
 
         }
 

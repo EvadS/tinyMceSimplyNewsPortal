@@ -22,9 +22,12 @@ namespace SimplyNewsPortal.ConcreteRepository
             return db.BlogPosts;
         }
 
-        public IEnumerable<BlogPost> GetBlogList(int pageSkip,int pageTake)
+        public IEnumerable<BlogPost> GetBlogList(int currentPage,int pageTake)
         {
-            return db.BlogPosts;
+            var query = db.BlogPosts.OrderBy(c => c.Title);
+            var list = query.Skip((currentPage - 1) * pageTake).Take(pageTake).ToList();
+
+            return list;
         }
 
         public BlogPost GetBlog(int id)
@@ -74,6 +77,11 @@ namespace SimplyNewsPortal.ConcreteRepository
             GC.SuppressFinalize(this);
         }
 
+
+        public int GetDataCount()
+        {
+            return db.BlogPosts.Count();
+        }
       
     }
 }
